@@ -27,11 +27,11 @@ export function polygon({
 
     const ngon = Rngon.ngon(vertices, {
         color,
+        allowAlphaReject: false,
+        allowAlphaBlend: false,
         auxiliary: {
-            mousePick: {
-                id: self.id,
-            }
-        }
+            id: self.id
+        },
     });
 
     const mesh = Rngon.mesh([ngon], {

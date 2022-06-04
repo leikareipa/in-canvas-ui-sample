@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width">
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <script src="https://www.tarpeeksihyvaesoft.com/experimental/retro-ngon/distributable/rngon.cat.js"></script>
+        <script src="/experimental/retro-ngon/distributable/rngon.cat.js"></script>
         <style>
             body {
                 margin: 0;
@@ -19,7 +19,6 @@
     <body>
         <canvas id="canvas"></canvas>
         <script type="module">
-            import {pickBuffer, resetPickBuffer} from "./mouse-pick.js";
             import {triangle} from "./components/triangle.js";
             import {square} from "./components/square.js";
 
@@ -36,29 +35,19 @@
                     position: Rngon.translation_vector(1, -1, 0),
                     color: Rngon.color_rgba(255, 200, 0),
                 }),
-                square({
+                triangle({
                     position: Rngon.translation_vector(-1, 1, 0),
                     color: Rngon.color_rgba(255, 0, 255),
                     scale: Rngon.translation_vector(0.5, 0.5, 0.5),
                     onUpdate: function() {
                         const timestamp = performance.now();
-                        this.rotation = Rngon.rotation_vector(0, (timestamp / 10), (timestamp / 10));
+                        this.rotation = Rngon.rotation_vector((timestamp / 10), 0, (timestamp / 10));
                     },
                 }),
             ];
 
             const renderOptions = {
                 cameraPosition: Rngon.translation_vector(0, 0, -6),
-                modules: {
-                    surfaceWipe: function() {
-                        resetPickBuffer();
-                        Rngon.baseModules.surface_wipe();
-                    },
-                },
-                auxiliaryBuffers: [{
-                    buffer: pickBuffer(),
-                    property:"mousePick",
-                }],
             };
             
             (function renderLoop() {
